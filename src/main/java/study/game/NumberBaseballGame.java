@@ -50,9 +50,8 @@ public class NumberBaseballGame {
     }
 
     public static void main(final String[] args) {
-        NumberBaseballGame game = new NumberBaseballGame();
         try {
-            game.play();
+            NumberBaseballGame.play();
         } catch (IOException e) {
             e.printStackTrace();
         }
