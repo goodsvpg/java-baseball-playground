@@ -25,7 +25,7 @@ public class NumberBaseballGame {
             BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
             inputView.printInputNumber();
             String input = br.readLine();
-            System.out.println(input);
+            
             if (core.isValidLength(input) == false) {
                 resultView.printInvalidLength();
                 continue;
@@ -36,13 +36,12 @@ public class NumberBaseballGame {
             }
 
             Map<Rule, Integer> resultMap = core.getMatchResult(input);
+            
             resultView.printResult(resultMap);
             
             if(core.isSuccess() == false) continue;
-                
-            inputView.answerGameEnd();  
             
-            if(core.isGameEnd(br.read()) == false) {
+            if(core.checkGameEnd(br)) {
                 br.close();
                 break;
             }

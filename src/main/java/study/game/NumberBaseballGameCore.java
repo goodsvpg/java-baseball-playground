@@ -1,15 +1,16 @@
 package study.game;
 
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.regex.Pattern;
 
 public class NumberBaseballGameCore {
-    private static final int RESTART = 1;
-
-    private static final int END = 2;
-
     private static final int MAX_INPUT_SIZE = 3;
+
+    private Optional<NumberBaseballGameInputView> inputViewOptional;
 
     private char[] answerList;
 
@@ -36,8 +37,12 @@ public class NumberBaseballGameCore {
         return Pattern.matches("^[1-9]*$", input);
     }
 
-    public boolean isValueGameEndAnswer(int answer) {
-        if(result.containsValue(answer)) return true;
+    public boolean isValidGameEndAnswer(int answer) {
+        for (GameEndingChoice gameEndingChoice : GameEndingChoice.values()) {
+            if (gameEndingChoice.getChoiceNumber() == answer) {
+                return true;
+            }
+        }
         return false;
     }
 
@@ -58,6 +63,9 @@ public class NumberBaseballGameCore {
 
         answerList = new char[] { '5', '8', '2' };
         inputList = input.toCharArray();
+
+        inputViewOptional = Optional.empty();
+
     }
 
     private void judgeMatch(String input) {
@@ -67,6 +75,7 @@ public class NumberBaseballGameCore {
     private void compareAnswerAndInputList(char[] inputList, int inputListIndex) {
         if (inputListIndex == MAX_INPUT_SIZE)
             return;
+
         for (int answerListIndex = 0; answerListIndex < MAX_INPUT_SIZE; answerListIndex++) {
             renewalMatchResult(inputList, answerListIndex, inputListIndex);
         }
@@ -77,6 +86,7 @@ public class NumberBaseballGameCore {
     private void renewalMatchResult(char[] inputList, int answerListIndex, int inputListIndex) {
         if (answerList[answerListIndex] != inputList[inputListIndex])
             return;
+
         if (answerListIndex == inputListIndex) {
             increaseMatchResult(Rule.STRIKE);
             return;
@@ -95,9 +105,29 @@ public class NumberBaseballGameCore {
         return false;
     }
 
-    public boolean isGameEnd(int answer) {
-        if(Character.getNumericValue(answer) == RESTART) return true;
-        if(Character.getNumericValue(answer) == END) return false;
+    private NumberBaseballGameInputView getNumberBaseballGameInputView() {
+        if (inputViewOptional.isPresent() == false) {
+            NumberBaseballGameInputView inputView = new NumberBaseballGameInputView();
+            inputViewOptional = Optional.of(inputView);
+        }
+        return inputViewOptional.get();
+    }
+
+    private boolean isGameEnd(int answer) {
+        if (GameEndingChoice.END.getChoiceNumber() == answer)
+            return true;
+        return false;
+    }
+
+    public boolean checkGameEnd(BufferedReader br) throws IOException {
+        getNumberBaseballGameInputView().answerGameEnd();
+        
+        int answer = Character.getNumericValue(br.read());
+
+        if(isValidGameEndAnswer(answer) == false) checkGameEnd(br);
+        
+        if(isGameEnd(answer)) return true;
+        
         return false;
     }
 }   

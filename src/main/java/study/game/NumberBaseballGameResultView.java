@@ -5,11 +5,11 @@ import java.util.Map;
 public class NumberBaseballGameResultView {
     
     public void printInvalidLength() {
-        System.out.println("숫자의 자리수가 초과하였습니다.");
+        System.out.println("숫자의 자리수가 올바르지 않습니다.");
     }
 
     public void printInvalidNumber() {
-        System.out.println("숫자의 범위가 잘못되었습니다.");
+        System.out.println("숫자의 범위가 올바르지 않습니다.");
     }
 
     public void printResult(Map<Rule, Integer> resultMap) {
