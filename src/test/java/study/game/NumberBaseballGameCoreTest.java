@@ -22,4 +22,20 @@ public class NumberBaseballGameCoreTest {
         boolean result = numberBaseballGameCore.isValidNumber(input);
         assertThat(result).isEqualTo(expect);
     }
+
+    @ParameterizedTest
+    @CsvSource(value = {"0, false", "1, true" , "2, true"})
+    public void testIsValidGameEndAnswer(int input, boolean expect) {
+        boolean result = numberBaseballGameCore.isValidGameEndAnswer(input);
+        assertThat(result).isEqualTo(expect);
+    }
+
+    @ParameterizedTest
+    @CsvSource(value = {"1, false" , "2, true"})
+    public void testIsGameEnd(int input, boolean expect) {
+        boolean result = numberBaseballGameCore.isGameEnd(input);
+        assertThat(result).isEqualTo(expect);
+    }
+
+
 }

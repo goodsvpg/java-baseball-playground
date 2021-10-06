@@ -113,7 +113,7 @@ public class NumberBaseballGameCore {
         return inputViewOptional.get();
     }
 
-    private boolean isGameEnd(int answer) {
+    public boolean isGameEnd(int answer) {
         if (GameEndingChoice.END.getChoiceNumber() == answer)
             return true;
         return false;
