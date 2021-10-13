@@ -1,4 +1,4 @@
-package study.game;
+package study.game_v1;
 
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;

@@ -1,4 +1,4 @@
-package study.game;
+package study.game_v1;
 
 enum GameEndingChoice {
     RESTART(1), END(2);

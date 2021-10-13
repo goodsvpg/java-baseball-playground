@@ -1,4 +1,4 @@
-package study.game;
+package study.game_v1;
 
 public class NumberBaseballGameInputView {
 
